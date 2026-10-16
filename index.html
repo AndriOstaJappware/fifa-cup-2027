@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Jappware FIFA Cup 2027</title>
+<title>Jappware FIFA Cup 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -116,6 +116,19 @@ details.round summary{padding:10px 14px;cursor:pointer;font-family:var(--mono);f
 .score input{width:42px;height:38px;text-align:center;font:700 16px var(--mono);border:1.5px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);-moz-appearance:textfield}
 .score input:disabled{opacity:.45;cursor:not-allowed}
 .score input:focus{border-color:var(--pitch);outline:none}
+.score.ro{gap:6px}
+.score.ro b{min-width:34px;height:38px;display:grid;place-items:center;font:700 18px var(--mono);border-radius:6px;background:var(--bg);border:1.5px solid var(--line)}
+.score.ro.done b{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.score.ro b.e{color:var(--muted);font-weight:500}
+.sec-head > .sync,.sync{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;color:var(--muted)}
+.sync .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--paper)}
+.sync .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.sync .pill.ok::before{background:var(--pitch)}
+.sync .pill.busy::before{background:var(--gold)}
+.sync .pill.err{color:var(--card);border-color:var(--card)}
+.sync .pill.err::before{background:var(--card)}
+.sync .pill.admin{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sync .pill.admin::before{background:var(--gold)}
 .ud{font-size:11px;color:var(--gold);font-family:var(--mono)}
 
 .bracket{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:center}
@@ -140,7 +153,16 @@ details.round summary{padding:10px 14px;cursor:pointer;font-family:var(--mono);f
 .cardY{background:var(--gold)}.cardR{background:var(--card)}
 .pool{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .pool span{font-size:13px;padding:2px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
-footer{padding-block:40px 48px;color:var(--muted);font-size:13px}
+footer{padding-block:40px 48px;color:var(--muted);font-size:13px;display:grid;gap:14px}
+.adm{display:grid;gap:10px;max-width:560px}
+.adm .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.adm input{flex:1 1 260px;min-width:0;font:500 14px var(--mono);padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.adm input:focus{outline:none;border-color:var(--pitch)}
+.adm p{margin:0}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:13px;justify-self:start}
+.linkbtn:hover{color:var(--ink)}
+.adm .msg{font-size:13px}
+.adm .msg.err{color:var(--card)}
 @media (prefers-reduced-motion:reduce){.anim .slot{animation:none}}
 @media (max-width:480px){.fx{padding:8px 10px}.score input{width:36px}}
 /* league-phase additions */
@@ -187,6 +209,7 @@ tr.out td{color:var(--muted)}
 .pn > span{min-width:0;overflow-wrap:anywhere}
 .fx .h .pn{flex-direction:row-reverse}
 .tn{display:flex;align-items:center;gap:10px}
+.fx.rest{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
 .fx.rest .pn{margin:0 6px}
 .oc .p .pn{font-size:15px}
 </style>
@@ -243,7 +266,7 @@ tr.out td{color:var(--muted)}
   <section id="league">
     <div class="sec-head">
       <div><div class="eyebrow">Крок 3 · загальний етап</div><h2>Таблиця ліги</h2></div>
-      <p class="legend">Вписуйте рахунок, таблиця перераховується сама. Дані зберігаються в цьому браузері.</p>
+      <div class="sync" id="sync"><span class="pill" id="syncPill">Завантажую</span><span id="syncText">Рахунки вносить організатор, сторінка оновлюється сама.</span></div>
     </div>
     <div class="league">
       <div class="zones"><span><i style="background:var(--pitch)"></i>1–2: одразу в півфінал</span><span><i style="background:var(--gold)"></i>3–6: плей-оф раунд</span><span><i style="background:var(--line)"></i>7–11: вибувають</span></div>
@@ -338,7 +361,7 @@ tr.out td{color:var(--muted)}
     </div>
   </section>
 </main>
-<footer class="wrap">Jappware FIFA Cup 2026 · Хай переможе найкращий геймпад.</footer>
+<footer class="wrap"><span>Jappware FIFA Cup 2026 · Хай переможе найкращий геймпад.</span><div class="adm" id="adm"></div></footer>
 
 <script>
 const PLAYERS=["Sviatoslav Maha","Valentyn Bohoslavskyi","Maksym Slisarchuk","Orest Hlodan","Maryan Khymych","Nazar Vynnytskyi","Vitalii Kulyk","Maksym Ravliuk","Stas Khmil","Serhii Hordiichuk","Dmytro Malon"];
@@ -376,7 +399,6 @@ function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.slots&
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
 const FIXED={"slots":[7,0,3,8,4,5,10,9,1,6,2],"draws":[{"7":9,"0":1,"3":7,"8":0,"4":5,"5":10,"9":4,"6":2,"1":8,"2":6},{"7":5,"3":1,"0":10,"8":2,"4":8,"10":4,"5":6,"1":0,"9":9,"2":3},{"0":4,"3":3,"5":8,"10":0,"1":7,"6":10,"7":6,"8":5,"4":9,"9":2},{"6":7,"2":5,"0":3,"4":6,"3":4,"5":2,"8":1,"10":10},{"9":10,"1":1,"2":7,"7":8,"3":5,"4":4,"8":3,"5":0,"10":6,"6":9},{"8":8,"4":1,"5":9,"9":3,"10":7,"1":6,"6":4,"7":0,"2":10,"0":5},{"10":3,"9":7,"1":2,"7":4,"6":5,"0":6,"2":8,"3":0}]};
 state={slots:FIXED.slots,draws:FIXED.draws.map(d=>Object.fromEntries(Object.entries(d).map(([k,v])=>[+k,v]))),scores:{}};
-try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.scores)state.scores=s.scores}catch(e){}
 buildSchedule();
 let view=0, animateView=false;
 
@@ -458,20 +480,30 @@ function fillTable(){
   standings.map((r,i)=>{const avg=r.stars.length?(r.stars.reduce((a,b)=>a+b,0)/r.stars.length).toFixed(1)+"★":"—",gd=r.GF-r.GA;
     return `<tr class="${i<2?"q":i<6?"z2":"out"}"><td>${i+1}</td><td class="n"><div class="tn">${av(r.p,30)}<div>${PLAYERS[r.p]}<small>сер. ${avg}</small></div></div></td><td>${r.P}</td><td>${r.W}</td><td>${r.D}</td><td>${r.L}</td><td>${r.GF}:${r.GA}</td><td>${gd>0?"+":""}${gd}</td><td>${r.B}</td><td class="pts">${r.Pts}</td></tr>`}).join("")+"</tbody>";
 }
+const openRounds=new Set([0]);
 function renderRounds(){
   const box=document.getElementById("roundsBox"),drawn=state.draws.length;
-  box.innerHTML=schedule.map((rd,r)=>`<details class="round"${r===0?" open":""}><summary><span>Тур ${r+1}</span><span>${r<drawn?rd.m.length+" матчі":"клуби не розіграні"}</span></summary>${rd.m.map(([h,a])=>fx(r,h,a)).join("")}<div class="fx rest">Відпочиває: ${rd.rest.map(p=>who(p,20)).join("")}</div></details>`).join("");
+  box.innerHTML=schedule.map((rd,r)=>`<details class="round" data-r="${r}"${openRounds.has(r)?" open":""}><summary><span>Тур ${r+1}</span><span>${playedIn(r)}/${rd.m.length} зіграно</span></summary>${rd.m.map(([h,a])=>fx(r,h,a)).join("")}<div class="fx rest">Відпочиває: ${rd.rest.map(p=>who(p,20)).join("")}</div></details>`).join("");
+  box.querySelectorAll("details").forEach(d=>d.addEventListener("toggle",()=>{d.open?openRounds.add(+d.dataset.r):openRounds.delete(+d.dataset.r)}));
   box.querySelectorAll("input").forEach(inp=>inp.addEventListener("input",e=>{
     const [k,side]=e.target.dataset.k.split("|");const v=e.target.value.replace(/\D/g,"").slice(0,2);e.target.value=v;
-    const s=state.scores[k]||["",""];s[+side]=v;state.scores[k]=s;save();
-    fillTable();renderBracket();renderDrawBox();
+    const s=state.scores[k]||["",""];s[+side]=v;
+    if(s[0]===""&&s[1]==="")delete state.scores[k];else state.scores[k]=s;
+    fillTable();renderBracket();
+    const sum=e.target.closest("details").querySelector("summary span:last-child");const r=+k.split("-")[0];sum.textContent=`${playedIn(r)}/${schedule[r].m.length} зіграно`;
+    queueSave(k);
   }));
 }
+const playedIn=r=>schedule[r].m.filter(([h,a])=>valid(state.scores[r+"-"+h+"-"+a])).length;
 function fx(r,h,a){
-  const k=r+"-"+h+"-"+a,s=state.scores[k]||["",""],th=teamOf(r,h),ta=teamOf(r,a),off=!th;
+  const k=r+"-"+h+"-"+a,s=state.scores[k]||["",""],th=teamOf(r,h),ta=teamOf(r,a);
   const club=t=>t?`${t.n} · ${t.s}★`:`<i>клуб ще не розіграно</i>`;
+  const score=ADMIN.token
+    ?`<div class="score"><input id="s${k}h" inputmode="numeric" aria-label="Голи ${PLAYERS[h]}" data-k="${k}|0" value="${s[0]??""}">:<input id="s${k}a" inputmode="numeric" aria-label="Голи ${PLAYERS[a]}" data-k="${k}|1" value="${s[1]??""}"></div>`
+    :valid(s)?`<div class="score ro done" aria-label="Рахунок ${s[0]}:${s[1]}"><b>${s[0]}</b>:<b>${s[1]}</b></div>`
+    :`<div class="score ro" aria-label="Ще не зіграно"><b class="e">–</b>:<b class="e">–</b></div>`;
   return `<div class="fx"><div class="h"><div class="who">${who(h,24)}</div><div class="club">${club(th)}</div>${isUnder(th,ta)?`<div class="ud">★ бонус</div>`:""}</div>
-  <div class="score"><input id="s${k}h" inputmode="numeric" aria-label="Голи ${PLAYERS[h]}" data-k="${k}|0" value="${s[0]??""}"${off?" disabled":""}>:<input id="s${k}a" inputmode="numeric" aria-label="Голи ${PLAYERS[a]}" data-k="${k}|1" value="${s[1]??""}"${off?" disabled":""}></div>
+  ${score}
   <div class="a"><div class="who">${who(a,24)}</div><div class="club">${club(ta)}</div>${isUnder(ta,th)?`<div class="ud">★ бонус</div>`:""}</div></div>`;
 }
 function renderBracket(){
@@ -494,8 +526,104 @@ const TWITCH_CHANNEL="andriosta";
   v.innerHTML=`<iframe src="https://player.twitch.tv/?channel=${TWITCH_CHANNEL}${p}&muted=true&autoplay=true" allowfullscreen title="Трансляція Twitch"></iframe>`;
   c.innerHTML=`<iframe src="https://www.twitch.tv/embed/${TWITCH_CHANNEL}/chat?darkpopout${p}" title="Чат Twitch"></iframe>`;
 })();
+// ===== Спільні рахунки: файл scores.json у репозиторії GitHub =====
+const GH={owner:"AndriOstaJappware",repo:"fifa-cup-2026",branch:"main",path:"scores.json"};
+const TOKEN_KEY="fifa-cup-2026-admin-token";
+const ADMIN={token:null,sha:null,timer:null,pending:new Set(),saving:false};
+try{ADMIN.token=localStorage.getItem(TOKEN_KEY)}catch(e){}
+let lastUpdated=null;
+const b64e=t=>btoa(unescape(encodeURIComponent(t)));
+const b64d=t=>decodeURIComponent(escape(atob(t.replace(/\s/g,""))));
+const api=(path,opt={})=>fetch("https://api.github.com/repos/"+GH.owner+"/"+GH.repo+path,{cache:"no-store",...opt,headers:{Accept:"application/vnd.github+json",Authorization:"Bearer "+ADMIN.token,...(opt.headers||{})}});
+const hhmm=iso=>{try{const d=new Date(iso);return d.toLocaleString("uk-UA",{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}catch(e){return ""}};
+function setSync(cls,label,text){const p=document.getElementById("syncPill");p.className="pill "+cls;p.textContent=label;if(text!=null)document.getElementById("syncText").textContent=text}
+function cleanScores(o){const out={};Object.entries(o||{}).forEach(([k,v])=>{if(Array.isArray(v)&&/^\d+-\d+-\d+$/.test(k))out[k]=[String(v[0]??""),String(v[1]??"")]});return out}
+function applyScores(data){
+  const next=cleanScores(data.scores);
+  if(JSON.stringify(next)===JSON.stringify(state.scores)&&data.updated===lastUpdated)return;
+  state.scores=next;lastUpdated=data.updated||null;
+  fillTable();renderRounds();renderBracket();
+}
+/* читання для всіх: сайт і raw.githubusercontent, береться свіжіша версія */
+async function pullPublic(){
+  const urls=["scores.json?t="+Date.now(),`https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}/${GH.path}?t=${Date.now()}`];
+  const res=await Promise.allSettled(urls.map(u=>fetch(u,{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(r.status))));
+  const ok=res.filter(x=>x.status==="fulfilled").map(x=>x.value);
+  if(!ok.length){setSync("err","Немає зв'язку","Не вдалося завантажити рахунки. Спробую ще раз за хвилину.");return}
+  ok.sort((a,b)=>String(b.updated||"").localeCompare(String(a.updated||"")));
+  applyScores(ok[0]);
+  setSync("ok","Онлайн",lastUpdated?`Останнє оновлення: ${hhmm(lastUpdated)}. Сторінка оновлюється сама щохвилини.`:"Ще немає жодного результату. Сторінка оновлюється сама щохвилини.");
+}
+/* організатор: читання і запис через GitHub API */
+async function pullAdmin(){
+  const r=await api("/contents/"+GH.path+"?ref="+GH.branch);
+  if(r.status===404){ADMIN.sha=null;return{scores:{},updated:null}}
+  if(r.status===401){adminFail("Ключ доступу не підходить або протермінований. Увійдіть з новим ключем.");throw new Error("401")}
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const j=await r.json();ADMIN.sha=j.sha;return JSON.parse(b64d(j.content));
+}
+function queueSave(k){ADMIN.pending.add(k);clearTimeout(ADMIN.timer);setSync("busy busy","Не збережено","Зміни збережуться за мить…");ADMIN.timer=setTimeout(pushAdmin,1500)}
+function describe(k){const [r,h,a]=k.split("-").map(Number),s=state.scores[k];return `Тур ${r+1}: ${PLAYERS[h]} ${valid(s)?s[0]+":"+s[1]:"—"} ${PLAYERS[a]}`}
+async function pushAdmin(retry=true){
+  if(ADMIN.saving){clearTimeout(ADMIN.timer);ADMIN.timer=setTimeout(pushAdmin,800);return}
+  ADMIN.saving=true;setSync("busy","Зберігаю","Зберігаю на GitHub…");
+  const keys=[...ADMIN.pending];
+  const updated=new Date().toISOString();
+  const body={message:keys.length===1?describe(keys[0]):`Оновлено ${keys.length} результати`,branch:GH.branch,
+    content:b64e(JSON.stringify({updated,scores:state.scores},null,1)+"\n")};
+  if(ADMIN.sha)body.sha=ADMIN.sha;
+  try{
+    const r=await api("/contents/"+GH.path,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if((r.status===409||r.status===422)&&retry){ADMIN.saving=false;await pullAdmin();return pushAdmin(false)}
+    if(r.status===401||r.status===403){adminFail("GitHub не дав зберегти. Перевірте, що ключ має доступ Contents: Read and write до репозиторію "+GH.repo+".");return}
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    const j=await r.json();ADMIN.sha=j.content.sha;lastUpdated=updated;
+    keys.forEach(k=>ADMIN.pending.delete(k));
+    setSync("ok","Збережено",`Збережено о ${hhmm(updated)}. Інші побачать результат протягом 1–2 хвилин.`);
+  }catch(e){setSync("err","Помилка","Не вдалося зберегти ("+e.message+"). Перевірте інтернет, спробую ще раз за 10 секунд.");clearTimeout(ADMIN.timer);ADMIN.timer=setTimeout(pushAdmin,10000)}
+  finally{ADMIN.saving=false}
+}
+window.addEventListener("beforeunload",e=>{if(ADMIN.pending.size){e.preventDefault();e.returnValue=""}});
+function adminFail(msg){ADMIN.token=null;try{localStorage.removeItem(TOKEN_KEY)}catch(e){}renderAdm(msg,true);renderRounds();setSync("err","Не збережено",msg);}
+function renderAdm(msg,isErr){
+  const el=document.getElementById("adm");
+  if(ADMIN.token){
+    el.innerHTML=`<div class="row"><span>Ви увійшли як організатор. Рахунки можна вписувати прямо в матчах ліги.</span><button class="linkbtn" id="admOut">Вийти</button></div>`;
+    el.querySelector("#admOut").onclick=()=>{if(ADMIN.pending.size){setSync("busy","Не збережено","Зачекайте, поки зміни збережуться.");return}ADMIN.token=null;try{localStorage.removeItem(TOKEN_KEY)}catch(e){}renderAdm();renderRounds();setSync("ok","Онлайн","Ви вийшли з режиму організатора.")};
+    return;
+  }
+  el.innerHTML=`<button class="linkbtn" id="admOpen" aria-expanded="false">Вхід для організатора</button>
+  <form class="adm" id="admForm" hidden>
+    <p>Вставте ключ доступу GitHub (fine-grained token з правом <b>Contents: Read and write</b> на репозиторій ${GH.repo}). Ключ зберігається лише в цьому браузері.</p>
+    <div class="row"><input id="admToken" type="password" autocomplete="off" placeholder="github_pat_…" aria-label="Ключ доступу GitHub"><button class="btn primary" type="submit">Увійти</button></div>
+    <p class="msg${isErr?" err":""}" id="admMsg">${msg||""}</p>
+  </form>`;
+  const f=el.querySelector("#admForm"),o=el.querySelector("#admOpen");
+  if(msg){f.hidden=false;o.setAttribute("aria-expanded","true")}
+  o.onclick=()=>{f.hidden=!f.hidden;o.setAttribute("aria-expanded",String(!f.hidden));if(!f.hidden)f.querySelector("input").focus()};
+  f.onsubmit=async e=>{e.preventDefault();const t=f.querySelector("#admToken").value.trim(),m=f.querySelector("#admMsg");
+    if(!t){m.className="msg err";m.textContent="Вставте ключ.";return}
+    m.className="msg";m.textContent="Перевіряю ключ…";
+    try{const r=await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}`,{headers:{Authorization:"Bearer "+t,Accept:"application/vnd.github+json"}});
+      if(!r.ok){m.className="msg err";m.textContent=r.status===401?"Ключ не підходить. Перевірте, що скопіювали його повністю.":"Ключ не має доступу до репозиторію "+GH.repo+".";return}
+      const j=await r.json();if(!j.permissions||!j.permissions.push){m.className="msg err";m.textContent="Ключ може лише читати. Дайте йому право Contents: Read and write.";return}
+      ADMIN.token=t;try{localStorage.setItem(TOKEN_KEY,t)}catch(e){}
+      await startAdmin();
+    }catch(err){m.className="msg err";m.textContent="Не вдалося зв'язатися з GitHub. Перевірте інтернет."}};
+}
+async function startAdmin(){
+  renderAdm();
+  try{const d=await pullAdmin();applyScores(d);renderRounds();setSync("admin","Організатор",lastUpdated?`Останнє збереження: ${hhmm(lastUpdated)}. Зміни зберігаються автоматично.`:"Зміни зберігаються автоматично.")}
+  catch(e){if(e.message!=="401")setSync("err","Помилка","Не вдалося завантажити рахунки з GitHub.")}
+}
+function startSync(){
+  if(ADMIN.token)startAdmin();else{renderAdm();pullPublic()}
+  setInterval(()=>{if(!ADMIN.token&&!document.hidden)pullPublic()},60000);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!ADMIN.token)pullPublic()});
+}
 function renderAll(){renderOpp();renderTabs();renderDrawBox();fillTable();renderRounds();renderBracket()}
 renderAll();
+startSync();
 </script>
 </body>
 </html>
