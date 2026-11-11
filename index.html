@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Jappware FIFA Cup 2027</title>
+<title>Jappware FIFA Cup 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -187,7 +187,45 @@ tr.out td{color:var(--muted)}
 .league{display:grid;gap:16px}
 .rounds.two{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));align-items:start}
 .bracket{grid-template-columns:1fr 1fr 1fr}
-.stage{display:grid;gap:12px;align-content:center}
+.stage{display:grid;gap:12px;align-content:start}
+.ko{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+@media (max-width:980px){.ko{grid-template-columns:1fr}}
+.ko .stage > h3{font-size:15px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.ko .stage > h3 small{font:500 11px var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.kt{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.kt.kt-final{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.kt-head{display:flex;justify-content:space-between;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kt-clubs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px 0}
+.cl{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 8px 3px 4px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.cl i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 8px var(--display)}
+.cl b{font:700 10px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.cl.str b{color:var(--card)}.cl.wk b{color:var(--pitch)}
+.agg{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center;padding:12px 14px}
+.agg .side{display:grid;gap:2px;min-width:0}
+.agg .side.r{text-align:right;justify-items:end}
+.agg .side small{font:500 11px var(--mono);color:var(--muted)}
+.agg .side.win .pn > span{font-weight:700}
+.agg .side.lose{opacity:.55}
+.agg .tot{font:700 22px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.agg .tot.e{color:var(--muted);font-weight:500}
+.legs{display:grid;border-top:1px solid var(--line)}
+.leg{display:grid;grid-template-columns:52px minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;padding:8px 14px;border-top:1px dashed var(--line);font-size:13px}
+.leg:first-child{border-top:0}
+.leg .n{font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.leg .lh{text-align:right;min-width:0}.leg .la{min-width:0}
+.leg .who2{font-weight:600;overflow-wrap:anywhere}
+.leg .cn{font-size:11px;color:var(--muted)}
+.leg .cn.str{color:var(--card)}
+.leg .score input,.leg .score.ro b{width:36px;height:34px;min-width:34px;font-size:15px}
+.leg.pen{background:var(--bg)}
+.kt-foot{padding:9px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.kt-foot b{color:var(--ink)}
+.kt-foot.done{background:var(--q);color:var(--ink)}
+.champ{display:flex;align-items:center;gap:12px;padding:14px;background:var(--pitch);color:#fff;border-radius:12px;font-weight:700}
+.champ small{display:block;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.rule.twist{border-color:var(--card);box-shadow:inset 0 0 0 1px var(--card)}
+.rule.twist h3{color:var(--card)}
+@media (max-width:480px){.leg{grid-template-columns:1fr auto 1fr;}.leg .n{grid-column:1/-1}}
 .stage > .eyebrow{font-size:11px}
 .live{margin-top:28px;background:#18181b;color:#efeff1;border-radius:14px;padding:18px;display:grid;gap:14px}
 .livehead{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
@@ -225,7 +263,7 @@ tr.out td{color:var(--muted)}
   </svg>
   <div class="wrap">
     <div class="eyebrow">Jappware · PlayStation · формат Ліги чемпіонів</div>
-    <h1>Jappware<br>FIFA Cup <span>2027</span></h1>
+    <h1>Jappware<br>FIFA Cup <span>2026</span></h1>
     <p>Одна спільна таблиця на всіх, шість різних суперників у кожного і новий випадковий клуб на кожен тур. Двоє найкращих одразу йдуть у півфінал, місця з 3 по 6 б'ються в плей-оф раунді.</p>
     <div class="facts">
       <div><b>11</b>учасників</div>
@@ -278,8 +316,8 @@ tr.out td{color:var(--muted)}
 
   <section id="bracket">
     <div class="sec-head"><div><div class="eyebrow">Крок 4 · вибування</div><h2>Плей-оф</h2></div>
-    <p class="legend">Пари за поточними позиціями в таблиці</p></div>
-    <div class="bracket" id="bracketBox"></div>
+    <p class="legend">Кожна пара грає два матчі, у другому гравці міняються клубами. Переможця визначає сума голів. У півфіналах Ель Класіко з окремими правилами.</p></div>
+    <div class="ko" id="bracketBox"></div>
   </section>
 
   <section id="rules">
@@ -302,7 +340,7 @@ tr.out td{color:var(--muted)}
           <li>На кожен тур гравець отримує випадковий клуб із пулу. Жеребкування вже проведене на всі 7 турів.</li>
           <li>У межах туру клуб дістається лише одному гравцю.</li>
           <li>Жеребкування намагається не давати тобі той самий клуб двічі.</li>
-          <li>Клуби для плей-оф розіграє організатор після завершення ліги.</li>
+          <li>У плей-оф діють окремі правила: «сильний і слабкий» (див. нижче).</li>
         </ul>
         <div class="pool" id="pool"></div>
       </div>
@@ -324,13 +362,54 @@ tr.out td{color:var(--muted)}
           <li>5. Якщо все рівно: серія пенальті 5 на 5 у грі.</li>
         </ul>
       </div>
-      <div class="rule">
-        <h3>Матчі плей-оф</h3>
+      <div class="rule twist">
+        <h3>Плей-оф раунд, 3-тє місце і фінал: сильний і слабкий</h3>
         <ul>
-          <li>Плей-оф раунд, півфінали і фінал: один матч.</li>
-          <li>Вдома грає той, хто вище в таблиці ліги.</li>
-          <li>Нічия: овертайм, потім пенальті.</li>
+          <li>Кожна пара грає <b>два матчі</b>. На пару розіграно один <b>сильний</b> клуб (4★ і вище) і один <b>слабкий</b> (3★ і нижче).</li>
+          <li>У 1-му матчі сильним клубом грає той, хто нижче в таблиці ліги. У 2-му гравці <b>міняються клубами</b>.</li>
+          <li>Переможця визначає <b>сума голів</b> за два матчі.</li>
+          <li>Фінал: <b>Real Madrid проти Hyderabad FC</b>.</li>
+        </ul>
+      </div>
+      <div class="rule twist">
+        <h3>Півфінали: Ель Класіко</h3>
+        <ul>
+          <li>Обидва матчі: <b>Real Madrid проти Barcelona</b>. У 1-му матчі Реалом грає той, хто нижче в таблиці ліги, у 2-му гравці міняються клубами.</li>
+          <li><b>Кожен гол забиває новий футболіст.</b> Якщо футболіст уже забив у цьому матчі, його наступні голи не зараховуються. Перевіряємо за списком авторів голів після матчу.</li>
+          <li><b>Гол з-за меж штрафного майданчика рахується за два.</b> Прямий штрафний з-за меж штрафного теж.</li>
+          <li>Повторний гол того самого футболіста не зараховується, навіть якщо він далекий.</li>
+          <li>Пенальті в матчі та автоголи рахуються як звичайний гол.</li>
+          <li>У гру вносимо вже <b>підрахований</b> рахунок: якщо в грі 2:1, але один гол переможця був далеким, вносимо 3:1.</li>
+          <li>Нічия за сумою: серія пенальті після 2-го матчу, у ній рахуються всі голи.</li>
+        </ul>
+      </div>
+      <div class="rule twist">
+        <h3>Фінал: голи останніх хвилин</h3>
+        <ul>
+          <li>Два матчі <b>Real Madrid проти Hyderabad FC</b> з обміном клубами і правилами «сильний і слабкий».</li>
+          <li><b>Гол на 80-й хвилині гри й пізніше рахується за два</b>, разом із доданим часом. Хвилину видно в підсумку матчу.</li>
+          <li>Для сильного клубу подвоюється лише гол, який і так зараховується: з-за меж штрафного або головою.</li>
+          <li>У гру вносимо вже підрахований рахунок: якщо в грі 1:1, але гол слабкого клубу був на 85-й хвилині, вносимо 2:1.</li>
+          <li>Нічия за сумою: серія пенальті після 2-го матчу, у ній рахуються всі голи.</li>
+        </ul>
+      </div>
+      <div class="rule twist">
+        <h3>Як забиває сильний клуб</h3>
+        <ul>
+          <li>Зараховується лише гол <b>з-за меж штрафного майданчика</b> (зокрема прямий штрафний).</li>
+          <li>Або гол <b>головою</b>: зі штрафного майданчика, після навісу, кутового чи подачі зі штрафного.</li>
+          <li>Не зараховуються: удари ногою зі штрафного майданчика, пенальті, автоголи суперника.</li>
+          <li>Слабкий клуб забиває як завгодно, усі його голи зараховуються.</li>
+          <li>У гру вносимо лише <b>зараховані</b> голи. Спірний гол переглядаємо в повторі одразу після матчу.</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <h3>Нічия і сітка</h3>
+        <ul>
+          <li>Рівна сума після двох матчів: <b>серія пенальті</b> одразу після 2-го матчу, без овертайму. У серії зараховуються всі голи.</li>
+          <li>Овертайм у самих матчах вимкнений: нічия в матчі лишається нічиєю.</li>
           <li>Півфінали: 1-й проти переможця пари 4–5, 2-й проти переможця пари 3–6.</li>
+          <li>Переможені в півфіналах грають за 3-тє місце за тими самими правилами.</li>
         </ul>
       </div>
       <div class="rule">
@@ -375,7 +454,7 @@ const TEAMS=[
  {n:"Inter Miami CF",s:3.5,c:"#d94c7a",ab:"MIA"},
  {n:"LA Galaxy",s:3,c:"#00245d",ab:"LAG"},
  {n:"Wrexham AFC",s:2.5,c:"#b5121b",ab:"WRX"},
- {n:"Inter Miami CF",s:3,c:"#c48c00",ab:"KBF"},
+ {n:"Kerala Blasters",s:2,c:"#c48c00",ab:"KBF"},
  {n:"Hyderabad FC",s:1,c:"#2b3a67",ab:"HFC"}
 ];
 // League-phase template over 11 slots: each slot plays 6 opponents (3 home, 3 away), rests once. [home, away]
@@ -506,14 +585,80 @@ function fx(r,h,a){
   ${score}
   <div class="a"><div class="who">${who(a,24)}</div><div class="club">${club(ta)}</div>${isUnder(ta,th)?`<div class="ud">★ бонус</div>`:""}</div></div>`;
 }
-function renderBracket(){
-  const nm=i=>standings[i]?who(standings[i].p,22):"—";
-  const tie=(lab,a,al,b,bl,cls="")=>`<div class="tie ${cls}"><div class="lab">${lab}</div><div class="row"><span>${a}</span><span>${al}</span></div><div class="row"><span>${b}</span><span>${bl}</span></div></div>`;
-  document.getElementById("bracketBox").innerHTML=`
-  <div class="stage"><div class="eyebrow">Плей-оф раунд</div>${tie("Пара 1",nm(3),"4-й",nm(4),"5-й")}${tie("Пара 2",nm(2),"3-й",nm(5),"6-й")}</div>
-  <div class="stage"><div class="eyebrow">Півфінали</div>${tie("Півфінал 1",nm(0),"1-й","Переможець пари 1","4–5")}${tie("Півфінал 2",nm(1),"2-й","Переможець пари 2","3–6")}</div>
-  <div class="stage"><div class="eyebrow">Фінал</div>${tie("Фінал","Переможець ПФ1","W1","Переможець ПФ2","W2","final")}</div>`;
+/* ===== Плей-оф: два матчі, сильний і слабкий клуб ===== */
+// [сильний, слабкий] — індекси в TEAMS, жеребкування проведене 11.11.2026
+const PO_CLUBS={"r1":[4,9],"r2":[2,10],"sf1":[0,1],"sf2":[0,1],"bronze":[3,10],"final":[0,10]};
+const TIES=[
+ {id:"r1",stage:0,name:"Пара 1",a:{seed:3},b:{seed:4}},
+ {id:"r2",stage:0,name:"Пара 2",a:{seed:2},b:{seed:5}},
+ {id:"sf1",stage:1,name:"Півфінал 1",mode:"clasico",a:{seed:0},b:{win:"r1"}},
+ {id:"sf2",stage:1,name:"Півфінал 2",mode:"clasico",a:{seed:1},b:{win:"r2"}},
+ {id:"final",stage:2,name:"Фінал",mode:"final",a:{win:"sf1"},b:{win:"sf2"}},
+ {id:"bronze",stage:2,name:"За 3-тє місце",a:{lose:"sf1"},b:{lose:"sf2"}}
+];
+const rankOf=p=>standings.findIndex(x=>x.p===p);
+const num=v=>v===""||v==null?null:+v;
+let tieCache={};
+function tieState(t){
+  if(tieCache[t.id])return tieCache[t.id];
+  const slot=x=>x.seed!=null?(standings[x.seed]?standings[x.seed].p:null):x.win?tieState(TIES.find(y=>y.id===x.win)).winner:tieState(TIES.find(y=>y.id===x.lose)).loser;
+  let A=slot(t.a),B=slot(t.b),hi=null,lo=null;
+  if(A!=null&&B!=null){[hi,lo]=rankOf(A)<=rankOf(B)?[A,B]:[B,A]}
+  const L1=state.scores["po-"+t.id+"-1"],L2=state.scores["po-"+t.id+"-2"],P=state.scores["po-"+t.id+"-p"];
+  // матч 1: вдома lo (сильний клуб), матч 2: вдома hi (сильний клуб)
+  const l1=valid(L1)?[+L1[0],+L1[1]]:null,l2=valid(L2)?[+L2[0],+L2[1]]:null;
+  const hiG=(l1?l1[1]:0)+(l2?l2[0]:0),loG=(l1?l1[0]:0)+(l2?l2[1]:0);
+  let winner=null,loser=null,needPen=false,pen=null;
+  if(hi!=null&&l1&&l2){
+    if(hiG!==loG){winner=hiG>loG?hi:lo}
+    else{needPen=true;if(valid(P)&&+P[0]!==+P[1]){pen=[+P[0],+P[1]];winner=pen[0]>pen[1]?hi:lo}}
+    if(winner!=null)loser=winner===hi?lo:hi;
+  }
+  return tieCache[t.id]={A,B,hi,lo,l1,l2,hiG,loG,started:!!(l1||l2),done:winner!=null,winner,loser,needPen,pen};
 }
+const clubChip=(ti,kind)=>{const t=TEAMS[ti];return `<span class="cl ${kind}"><i style="background:${t.c}">${t.ab}</i>${t.n} ${t.s}★${kind==="eq"?"":` <b>${kind==="str"?"сильний":"слабкий"}</b>`}</span>`};
+function scoreBox(key,aLab,bLab){
+  const s=state.scores[key]||["",""];
+  if(ADMIN.token)return `<div class="score"><input id="${key}-a" inputmode="numeric" aria-label="${aLab}" data-pk="${key}|0" value="${s[0]??""}">:<input id="${key}-b" inputmode="numeric" aria-label="${bLab}" data-pk="${key}|1" value="${s[1]??""}"></div>`;
+  return valid(s)?`<div class="score ro done"><b>${s[0]}</b>:<b>${s[1]}</b></div>`:`<div class="score ro"><b class="e">–</b>:<b class="e">–</b></div>`;
+}
+const nameOr=(p,ph)=>p!=null?who(p,22):`<span class="pn"><span style="color:var(--muted)">${ph}</span></span>`;
+const short=p=>{const w=PLAYERS[p].split(" ");return w[w.length-1]};
+function placeholder(x){if(x.seed!=null)return (x.seed+1)+"-те місце";const t=TIES.find(y=>y.id===(x.win||x.lose));return (x.win?"Переможець: ":"Переможений: ")+t.name}
+function tieCard(t){
+  const st=tieState(t),[sc,wc]=PO_CLUBS[t.id],eq=t.mode==="clasico",S=eq?null:TEAMS[sc],W=TEAMS[wc],SC=TEAMS[sc],ready=st.hi!=null;
+  const hiPH=placeholder(t.a),loPH=placeholder(t.b);
+  const side=(p,ph,g,cls)=>`<div class="side ${cls}${st.done?(p===st.winner?" win":" lose"):""}">${nameOr(p,ph)}<small>${p!=null?(rankOf(p)+1)+"-й у лізі":""}</small></div>`;
+  const tot=st.started?`<div class="tot">${st.hiG} : ${st.loG}${st.pen?`<div style="font-size:11px;color:var(--muted);text-align:center">пен. ${st.pen[0]}:${st.pen[1]}</div>`:""}</div>`:`<div class="tot e">– : –</div>`;
+  const leg=(n,home,away,hc,ac,key)=>`<div class="leg"><span class="n">Матч ${n}</span><div class="lh"><div class="who2">${home!=null?short(home):"—"}</div><div class="cn ${hc===S?"str":""}">${hc.n}</div></div>${ready?scoreBox(key,"Голи "+(home!=null?PLAYERS[home]:""),"Голи "+(away!=null?PLAYERS[away]:"")):`<div class="score ro"><b class="e">–</b>:<b class="e">–</b></div>`}<div class="la"><div class="who2">${away!=null?short(away):"—"}</div><div class="cn ${ac===S?"str":""}">${ac.n}</div></div></div>`;
+  let foot;
+  if(st.done)foot=`<div class="kt-foot done">Далі проходить <b>${PLAYERS[st.winner]}</b></div>`;
+  else if(st.needPen)foot=`<div class="kt-foot">Рівна сума. Вирішує серія пенальті.</div>`;
+  else if(!ready)foot=`<div class="kt-foot">Чекаємо суперників</div>`;
+  else foot=`<div class="kt-foot">${eq?"Кожен гол забиває новий футболіст · гол з-за штрафного = 2":t.mode==="final"?"Гол на 80-й хвилині й пізніше = 2 · сильним клубом лише з-за штрафного або головою":"Сильним клубом голи лише з-за штрафного або головою"}</div>`;
+  return `<div class="kt${t.id==="final"?" kt-final":""}">
+   <div class="kt-head"><span>${t.name}</span><span>сума двох матчів</span></div>
+   <div class="kt-clubs">${eq?`<span class="cl eq"><b style="color:var(--card)">Ель Класіко</b></span>`+clubChip(sc,"eq")+clubChip(wc,"eq"):(t.mode==="final"?`<span class="cl eq"><b style="color:var(--card)">80'+ гол = 2</b></span>`:"")+clubChip(sc,"str")+clubChip(wc,"wk")}</div>
+   <div class="agg">${side(ready?st.hi:st.A,ready?"":hiPH,0,"")}${tot}${side(ready?st.lo:st.B,ready?"":loPH,0,"r")}</div>
+   <div class="legs">
+     ${leg(1,st.lo,st.hi,SC,W,"po-"+t.id+"-1")}
+     ${leg(2,st.hi,st.lo,SC,W,"po-"+t.id+"-2")}
+     ${st.needPen||st.pen?`<div class="leg pen"><span class="n">Пенальті</span><div class="lh"><div class="who2">${short(st.hi)}</div></div>${scoreBox("po-"+t.id+"-p","Пенальті "+PLAYERS[st.hi],"Пенальті "+PLAYERS[st.lo])}<div class="la"><div class="who2">${short(st.lo)}</div></div></div>`:""}
+   </div>${foot}</div>`;
+}
+function renderBracket(){
+  tieCache={};
+  const stages=[["Плей-оф раунд","3–6 місця"],["Півфінали","1–2 місця чекають"],["Фінал","і матч за 3-тє місце"]];
+  const fin=tieState(TIES.find(t=>t.id==="final"));
+  const box=document.getElementById("bracketBox");
+  box.innerHTML=stages.map((sg,i)=>`<div class="stage"><h3>${sg[0]}<small>${sg[1]}</small></h3>${i===2&&fin.done?`<div class="champ">${av(fin.winner,40)}<div><small>Чемпіон Jappware FIFA Cup 2026</small>${PLAYERS[fin.winner]}</div></div>`:""}${TIES.filter(t=>t.stage===i).map(tieCard).join("")}</div>`).join("");
+  box.querySelectorAll("input[data-pk]").forEach(inp=>{
+    inp.addEventListener("input",e=>{const [k,side]=e.target.dataset.pk.split("|");const v=e.target.value.replace(/\D/g,"").slice(0,2);e.target.value=v;
+      const s=state.scores[k]||["",""];s[+side]=v;if(s[0]===""&&s[1]==="")delete state.scores[k];else state.scores[k]=s;queueSave(k)});
+    inp.addEventListener("change",()=>setTimeout(()=>{const id=document.activeElement&&document.activeElement.id;renderBracket();if(id){const el=document.getElementById(id);if(el)el.focus()}},0));
+  });
+}
+function describePO(k){const [,id,leg]=k.split("-"),t=TIES.find(x=>x.id===id),s=state.scores[k];return `${t?t.name:id}, ${leg==="p"?"пенальті":"матч "+leg}: ${valid(s)?s[0]+":"+s[1]:"—"}`}
 document.getElementById("pool").innerHTML=TEAMS.map(t=>`<span>${t.n} · ${t.s}★</span>`).join("");
 // ===== Twitch: впишіть назву каналу =====
 const TWITCH_CHANNEL="andriosta";
@@ -528,7 +673,7 @@ const TWITCH_CHANNEL="andriosta";
 })();
 // ===== Спільні рахунки: файл scores.json у репозиторії GitHub =====
 const GH={owner:"AndriOstaJappware",repo:"fifa-cup-2026",branch:"main",path:"scores.json"};
-const TOKEN_KEY="fifa-cup-2026-admin-token";
+const TOKEN_KEY="fifa-cup-2026-admin-token",PENDING_KEY="fifa-cup-2026-unsaved";
 const ADMIN={token:null,sha:null,timer:null,pending:new Set(),saving:false};
 try{ADMIN.token=localStorage.getItem(TOKEN_KEY)}catch(e){}
 let lastUpdated=null;
@@ -537,7 +682,7 @@ const b64d=t=>decodeURIComponent(escape(atob(t.replace(/\s/g,""))));
 const api=(path,opt={})=>fetch("https://api.github.com/repos/"+GH.owner+"/"+GH.repo+path,{cache:"no-store",...opt,headers:{Accept:"application/vnd.github+json",Authorization:"Bearer "+ADMIN.token,...(opt.headers||{})}});
 const hhmm=iso=>{try{const d=new Date(iso);return d.toLocaleString("uk-UA",{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}catch(e){return ""}};
 function setSync(cls,label,text){const p=document.getElementById("syncPill");p.className="pill "+cls;p.textContent=label;if(text!=null)document.getElementById("syncText").textContent=text}
-function cleanScores(o){const out={};Object.entries(o||{}).forEach(([k,v])=>{if(Array.isArray(v)&&/^\d+-\d+-\d+$/.test(k))out[k]=[String(v[0]??""),String(v[1]??"")]});return out}
+function cleanScores(o){const out={};Object.entries(o||{}).forEach(([k,v])=>{if(Array.isArray(v)&&/^(\d+-\d+-\d+|po-[a-z0-9]+-[12p])$/.test(k))out[k]=[String(v[0]??""),String(v[1]??"")]});return out}
 function applyScores(data){
   const next=cleanScores(data.scores);
   if(JSON.stringify(next)===JSON.stringify(state.scores)&&data.updated===lastUpdated)return;
@@ -562,8 +707,11 @@ async function pullAdmin(){
   if(!r.ok)throw new Error("HTTP "+r.status);
   const j=await r.json();ADMIN.sha=j.sha;return JSON.parse(b64d(j.content));
 }
-function queueSave(k){ADMIN.pending.add(k);clearTimeout(ADMIN.timer);setSync("busy busy","Не збережено","Зміни збережуться за мить…");ADMIN.timer=setTimeout(pushAdmin,1500)}
-function describe(k){const [r,h,a]=k.split("-").map(Number),s=state.scores[k];return `Тур ${r+1}: ${PLAYERS[h]} ${valid(s)?s[0]+":"+s[1]:"—"} ${PLAYERS[a]}`}
+function backupPending(){try{const o={};ADMIN.pending.forEach(k=>o[k]=state.scores[k]||null);ADMIN.pending.size?localStorage.setItem(PENDING_KEY,JSON.stringify(o)):localStorage.removeItem(PENDING_KEY)}catch(e){}}
+function readBackup(){try{return JSON.parse(localStorage.getItem(PENDING_KEY))||{}}catch(e){return{}}}
+function overlayPending(base){const out={...base};ADMIN.pending.forEach(k=>{const v=state.scores[k];if(v)out[k]=v;else delete out[k]});return out}
+function queueSave(k){ADMIN.pending.add(k);backupPending();clearTimeout(ADMIN.timer);setSync("busy busy","Не збережено","Зміни збережуться за мить…");ADMIN.timer=setTimeout(pushAdmin,1500)}
+function describe(k){if(k.startsWith("po-"))return describePO(k);const [r,h,a]=k.split("-").map(Number),s=state.scores[k];return `Тур ${r+1}: ${PLAYERS[h]} ${valid(s)?s[0]+":"+s[1]:"—"} ${PLAYERS[a]}`}
 async function pushAdmin(retry=true){
   if(ADMIN.saving){clearTimeout(ADMIN.timer);ADMIN.timer=setTimeout(pushAdmin,800);return}
   ADMIN.saving=true;setSync("busy","Зберігаю","Зберігаю на GitHub…");
@@ -572,13 +720,14 @@ async function pushAdmin(retry=true){
   const body={message:keys.length===1?describe(keys[0]):`Оновлено ${keys.length} результати`,branch:GH.branch,
     content:b64e(JSON.stringify({updated,scores:state.scores},null,1)+"\n")};
   if(ADMIN.sha)body.sha=ADMIN.sha;
+  const snap=JSON.stringify(state.scores);Object.defineProperty(body,"_snap",{value:snap,enumerable:false});
   try{
     const r=await api("/contents/"+GH.path,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-    if((r.status===409||r.status===422)&&retry){ADMIN.saving=false;await pullAdmin();return pushAdmin(false)}
-    if(r.status===401||r.status===403){adminFail("GitHub не дав зберегти. Перевірте, що ключ має доступ Contents: Read and write до репозиторію "+GH.repo+".");return}
+    if((r.status===409||r.status===422)&&retry){ADMIN.saving=false;const remote=await pullAdmin();state.scores=overlayPending(cleanScores(remote.scores));fillTable();renderBracket();return pushAdmin(false)}
+    if(r.status===401||r.status===403||r.status===404){adminFail("GitHub не дав зберегти рахунок (код "+r.status+"). У ключа немає права запису. Створіть fine-grained token з доступом до репозиторію "+GH.repo+" і правом Contents: Read and write, потім увійдіть знову. Невнесені рахунки збережені в цьому браузері й допишуться після входу.");return}
     if(!r.ok)throw new Error("HTTP "+r.status);
     const j=await r.json();ADMIN.sha=j.content.sha;lastUpdated=updated;
-    keys.forEach(k=>ADMIN.pending.delete(k));
+    keys.forEach(k=>{if(JSON.stringify(state.scores[k]||null)===JSON.stringify(JSON.parse(body._snap)[k]||null))ADMIN.pending.delete(k)});backupPending();
     setSync("ok","Збережено",`Збережено о ${hhmm(updated)}. Інші побачать результат протягом 1–2 хвилин.`);
   }catch(e){setSync("err","Помилка","Не вдалося зберегти ("+e.message+"). Перевірте інтернет, спробую ще раз за 10 секунд.");clearTimeout(ADMIN.timer);ADMIN.timer=setTimeout(pushAdmin,10000)}
   finally{ADMIN.saving=false}
@@ -613,7 +762,9 @@ function renderAdm(msg,isErr){
 }
 async function startAdmin(){
   renderAdm();
-  try{const d=await pullAdmin();applyScores(d);renderRounds();setSync("admin","Організатор",lastUpdated?`Останнє збереження: ${hhmm(lastUpdated)}. Зміни зберігаються автоматично.`:"Зміни зберігаються автоматично.")}
+  try{const d=await pullAdmin();const bk=readBackup();Object.keys(bk).forEach(k=>{ADMIN.pending.add(k);if(bk[k])state.scores[k]=bk[k];else delete state.scores[k]});
+    state.scores=overlayPending(cleanScores(d.scores));lastUpdated=d.updated||null;fillTable();renderBracket();renderRounds();
+    if(ADMIN.pending.size){pushAdmin();return}setSync("admin","Організатор",lastUpdated?`Останнє збереження: ${hhmm(lastUpdated)}. Зміни зберігаються автоматично.`:"Зміни зберігаються автоматично.")}
   catch(e){if(e.message!=="401")setSync("err","Помилка","Не вдалося завантажити рахунки з GitHub.")}
 }
 function startSync(){
