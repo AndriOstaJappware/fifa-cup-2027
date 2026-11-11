@@ -363,12 +363,11 @@ tr.out td{color:var(--muted)}
         </ul>
       </div>
       <div class="rule twist">
-        <h3>Плей-оф раунд, 3-тє місце і фінал: сильний і слабкий</h3>
+        <h3>Плей-оф раунд і 3-тє місце: сильний і слабкий</h3>
         <ul>
           <li>Кожна пара грає <b>два матчі</b>. На пару розіграно один <b>сильний</b> клуб (4★ і вище) і один <b>слабкий</b> (3★ і нижче).</li>
           <li>У 1-му матчі сильним клубом грає той, хто нижче в таблиці ліги. У 2-му гравці <b>міняються клубами</b>.</li>
           <li>Переможця визначає <b>сума голів</b> за два матчі.</li>
-          <li>Фінал: <b>Real Madrid проти Hyderabad FC</b>.</li>
         </ul>
       </div>
       <div class="rule twist">
@@ -386,10 +385,10 @@ tr.out td{color:var(--muted)}
       <div class="rule twist">
         <h3>Фінал: голи останніх хвилин</h3>
         <ul>
-          <li>Два матчі <b>Real Madrid проти Hyderabad FC</b> з обміном клубами і правилами «сильний і слабкий».</li>
+          <li>Два матчі <b>FC Barcelona проти FC Bayern München</b>. У 1-му матчі Барсою грає той, хто нижче в таблиці ліги, у 2-му гравці міняються клубами.</li>
           <li><b>Гол на 80-й хвилині гри й пізніше рахується за два</b>, разом із доданим часом. Хвилину видно в підсумку матчу.</li>
-          <li>Для сильного клубу подвоюється лише гол, який і так зараховується: з-за меж штрафного або головою.</li>
-          <li>У гру вносимо вже підрахований рахунок: якщо в грі 1:1, але гол слабкого клубу був на 85-й хвилині, вносимо 2:1.</li>
+          <li>Обмежень на те, як забивати, у фіналі немає: зараховуються всі голи.</li>
+          <li>У гру вносимо вже підрахований рахунок: якщо в грі 1:1, але один із голів був на 85-й хвилині, той гравець отримує 2.</li>
           <li>Нічия за сумою: серія пенальті після 2-го матчу, у ній рахуються всі голи.</li>
         </ul>
       </div>
@@ -587,7 +586,9 @@ function fx(r,h,a){
 }
 /* ===== Плей-оф: два матчі, сильний і слабкий клуб ===== */
 // [сильний, слабкий] — індекси в TEAMS, жеребкування проведене 11.11.2026
-const PO_CLUBS={"r1":[4,9],"r2":[2,10],"sf1":[0,1],"sf2":[0,1],"bronze":[3,10],"final":[0,10]};
+const PO_CLUBS={"r1":[4,9],"r2":[2,10],"sf1":[0,1],"sf2":[0,1],"bronze":[3,10],"final":[1,"bay"]};
+const BAYERN={n:"FC Bayern München",s:5,c:"#dc052d",ab:"FCB"};
+const TT=i=>i==="bay"?BAYERN:TEAMS[i];
 const TIES=[
  {id:"r1",stage:0,name:"Пара 1",a:{seed:3},b:{seed:4}},
  {id:"r2",stage:0,name:"Пара 2",a:{seed:2},b:{seed:5}},
@@ -616,7 +617,7 @@ function tieState(t){
   }
   return tieCache[t.id]={A,B,hi,lo,l1,l2,hiG,loG,started:!!(l1||l2),done:winner!=null,winner,loser,needPen,pen};
 }
-const clubChip=(ti,kind)=>{const t=TEAMS[ti];return `<span class="cl ${kind}"><i style="background:${t.c}">${t.ab}</i>${t.n} ${t.s}★${kind==="eq"?"":` <b>${kind==="str"?"сильний":"слабкий"}</b>`}</span>`};
+const clubChip=(ti,kind)=>{const t=TT(ti);return `<span class="cl ${kind}"><i style="background:${t.c}">${t.ab}</i>${t.n} ${t.s}★${kind==="eq"?"":` <b>${kind==="str"?"сильний":"слабкий"}</b>`}</span>`};
 function scoreBox(key,aLab,bLab){
   const s=state.scores[key]||["",""];
   if(ADMIN.token)return `<div class="score"><input id="${key}-a" inputmode="numeric" aria-label="${aLab}" data-pk="${key}|0" value="${s[0]??""}">:<input id="${key}-b" inputmode="numeric" aria-label="${bLab}" data-pk="${key}|1" value="${s[1]??""}"></div>`;
@@ -626,7 +627,7 @@ const nameOr=(p,ph)=>p!=null?who(p,22):`<span class="pn"><span style="color:var(
 const short=p=>{const w=PLAYERS[p].split(" ");return w[w.length-1]};
 function placeholder(x){if(x.seed!=null)return (x.seed+1)+"-те місце";const t=TIES.find(y=>y.id===(x.win||x.lose));return (x.win?"Переможець: ":"Переможений: ")+t.name}
 function tieCard(t){
-  const st=tieState(t),[sc,wc]=PO_CLUBS[t.id],eq=t.mode==="clasico",S=eq?null:TEAMS[sc],W=TEAMS[wc],SC=TEAMS[sc],ready=st.hi!=null;
+  const st=tieState(t),[sc,wc]=PO_CLUBS[t.id],eq=t.mode==="clasico"||t.mode==="final",S=eq?null:TT(sc),W=TT(wc),SC=TT(sc),ready=st.hi!=null;
   const hiPH=placeholder(t.a),loPH=placeholder(t.b);
   const side=(p,ph,g,cls)=>`<div class="side ${cls}${st.done?(p===st.winner?" win":" lose"):""}">${nameOr(p,ph)}<small>${p!=null?(rankOf(p)+1)+"-й у лізі":""}</small></div>`;
   const tot=st.started?`<div class="tot">${st.hiG} : ${st.loG}${st.pen?`<div style="font-size:11px;color:var(--muted);text-align:center">пен. ${st.pen[0]}:${st.pen[1]}</div>`:""}</div>`:`<div class="tot e">– : –</div>`;
@@ -635,10 +636,10 @@ function tieCard(t){
   if(st.done)foot=`<div class="kt-foot done">Далі проходить <b>${PLAYERS[st.winner]}</b></div>`;
   else if(st.needPen)foot=`<div class="kt-foot">Рівна сума. Вирішує серія пенальті.</div>`;
   else if(!ready)foot=`<div class="kt-foot">Чекаємо суперників</div>`;
-  else foot=`<div class="kt-foot">${eq?"Кожен гол забиває новий футболіст · гол з-за штрафного = 2":t.mode==="final"?"Гол на 80-й хвилині й пізніше = 2 · сильним клубом лише з-за штрафного або головою":"Сильним клубом голи лише з-за штрафного або головою"}</div>`;
+  else foot=`<div class="kt-foot">${t.mode==="final"?"Гол на 80-й хвилині й пізніше = 2":eq?"Кожен гол забиває новий футболіст · гол з-за штрафного = 2":"Сильним клубом голи лише з-за штрафного або головою"}</div>`;
   return `<div class="kt${t.id==="final"?" kt-final":""}">
    <div class="kt-head"><span>${t.name}</span><span>сума двох матчів</span></div>
-   <div class="kt-clubs">${eq?`<span class="cl eq"><b style="color:var(--card)">Ель Класіко</b></span>`+clubChip(sc,"eq")+clubChip(wc,"eq"):(t.mode==="final"?`<span class="cl eq"><b style="color:var(--card)">80'+ гол = 2</b></span>`:"")+clubChip(sc,"str")+clubChip(wc,"wk")}</div>
+   <div class="kt-clubs">${eq?`<span class="cl eq"><b style="color:var(--card)">${t.mode==="final"?"80'+ гол = 2":"Ель Класіко"}</b></span>`+clubChip(sc,"eq")+clubChip(wc,"eq"):clubChip(sc,"str")+clubChip(wc,"wk")}</div>
    <div class="agg">${side(ready?st.hi:st.A,ready?"":hiPH,0,"")}${tot}${side(ready?st.lo:st.B,ready?"":loPH,0,"r")}</div>
    <div class="legs">
      ${leg(1,st.lo,st.hi,SC,W,"po-"+t.id+"-1")}
